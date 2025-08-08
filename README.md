@@ -18,21 +18,17 @@ Hosted as a static website on **AWS S3** with a contact form backed by **AWS Lam
 ---
 
 ## Architecture
+# Navamani Gold Covering Website Architecture
 
-+--------------+        +----------------+        +-------------+        +-------------+        +--------------+
-| User Browser | -----> | Static Website | -----> | API Gateway | -----> | Lambda Func | -----> | DynamoDB DB  |
-|              |        |      (S3)      |        |             |        |             |        |              |
-+--------------+        +----------------+        +-------------+        +-------------+        +--------------+
-       ↑                                                                                              |
-       |                                                                                              |
-       +----------------------------------------------------------------------------------------------+
-                                       Response Success/Error
+```mermaid
+flowchart LR
+    A[User Browser] --> B[Static Website (S3)]
+    B --> C[API Gateway]
+    C --> D[AWS Lambda Function]
+    D --> E[DynamoDB]
 
+    E -->|Response Success/Error| A
 
-
-
-
----
 
 ## Setup Instructions
 
