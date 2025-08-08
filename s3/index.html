@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Navamani Gold Covering</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;600&display=swap');
+
+  /* Reset & base */
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    background: #fff8e1;
+    color: #4a3c0f;
+    line-height: 1.6;
+  }
+  a {
+    color: #b8860b;
+    text-decoration: none;
+  }
+  a:hover, a:focus {
+    text-decoration: underline;
+  }
+
+  /* Header */
+  header {
+    background: linear-gradient(90deg, #b8860b, #5a4f8d);
+    padding: 2rem 1rem;
+    text-align: center;
+    color: white;
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 2.8rem;
+    letter-spacing: 0.15em;
+    user-select: none;
+  }
+  header p {
+    margin-top: 0.5rem;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 1.2rem;
+  }
+
+  /* Hero */
+  .hero {
+    position: relative;
+    background:
+      linear-gradient(135deg, rgba(90,79,141,0.7), rgba(184,134,11,0.75)),
+      url('https://navamani-site01.s3.ap-south-1.amazonaws.com/images/hero.jpg');
+    background-size: cover;
+    background-position: center;
+    padding: 8rem 1rem 6rem;
+    color: white;
+    text-align: center;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.8rem;
+    margin: 0;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.7);
+  }
+  .hero p {
+    margin-top: 1rem;
+    font-size: 1.3rem;
+    font-weight: 300;
+    text-shadow: 0 1px 8px rgba(0,0,0,0.6);
+  }
+
+  /* Gallery */
+  .gallery {
+    max-width: 1200px;
+    margin: 3rem auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+    gap: 2rem;
+    padding: 0 1rem;
+  }
+  .gallery-item {
+    background: #fffaf0;
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(184, 134, 11, 0.3);
+    cursor: pointer;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .gallery-item:hover,
+  .gallery-item:focus-visible {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(184, 134, 11, 0.6);
+    outline: none;
+  }
+  .gallery-item img {
+    width: 100%;
+    display: block;
+    border-bottom: 4px solid #b8860b;
+    user-select: none;
+  }
+  .gallery-item h3 {
+    margin: 0.8rem 1rem 1rem;
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 1.4rem;
+    color: #5a4f8d;
+  }
+
+  /* Lightbox */
+  .lightbox-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+    z-index: 9999;
+  }
+  .lightbox-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .lightbox-content {
+    position: relative;
+    max-width: 90vw;
+    max-height: 80vh;
+  }
+  .lightbox-content img {
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(255,215,0,0.8);
+  }
+  .lightbox-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: #b8860b;
+    border: none;
+    color: #4a3c0f;
+    font-size: 1.8rem;
+    padding: 6px 12px;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 0 10px #b8860b;
+    transition: background 0.3s ease;
+  }
+  .lightbox-close:hover,
+  .lightbox-close:focus {
+    background: #ffd700;
+    outline: none;
+  }
+
+  /* Contact section */
+  #contact {
+    max-width: 500px;
+    margin: 3rem auto 6rem;
+    background: #fffaf0;
+    padding: 2rem 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(184, 134, 11, 0.4);
+  }
+  #contact h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    color: #5a4f8d;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  #contact form {
+    display: flex;
+    flex-direction: column;
+  }
+  #contact input, #contact textarea {
+    margin-bottom: 1rem;
+    padding: 12px 15px;
+    border: 1.5px solid #b8860b;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: 'Montserrat', sans-serif;
+  }
+  #contact textarea {
+    resize: vertical;
+    min-height: 100px;
+  }
+  #contact button {
+    background: #b8860b;
+    border: none;
+    padding: 14px;
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 700;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  #contact button:hover, #contact button:focus {
+    background: #8c6d1f;
+    outline: none;
+  }
+  #formResponse {
+    margin-top: 1rem;
+    font-weight: 600;
+    text-align: center;
+  }
+  #formResponse.success {
+    color: green;
+  }
+  #formResponse.error {
+    color: red;
+  }
+
+  /* Footer */
+  footer {
+    background: #5a4f8d;
+    color: white;
+    text-align: center;
+    padding: 1.5rem 1rem;
+    font-size: 1rem;
+  }
+  footer a {
+    color: #ffd700;
+  }
+  footer a:hover,
+  footer a:focus {
+    text-decoration: underline;
+  }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    header {
+      font-size: 2rem;
+      padding: 1.5rem 1rem;
+    }
+    .hero h1 {
+      font-size: 2.5rem;
+    }
+    .gallery {
+      gap: 1rem;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  Navamani Gold Covering
+  <p>Traditional Gold Covering Jewelry Since 2005</p>
+</header>
+
+<section class="hero" role="img" aria-label="Gold Jewelry Collection">
+  <h1>Shine in Tradition</h1>
+  <p>Explore our premium gold covering jewelry for every occasion.</p>
+</section>
+
+<section class="gallery" aria-label="Jewelry Collection Gallery">
+  <div tabindex="0" class="gallery-item" data-index="0" aria-label="Bridal Set">
+    <img src="https://navamani-site01.s3.ap-south-1.amazonaws.com/images/bridalset.jpg" alt="Elegant Bridal Set">
+    <h3>Bridal Set</h3>
+  </div>
+  <div tabindex="0" class="gallery-item" data-index="1" aria-label="Bangles">
+    <img src="https://navamani-site01.s3.ap-south-1.amazonaws.com/images/bangles.jpg" alt="Traditional Bangles">
+    <h3>Bangles</h3>
+  </div>
+  <div tabindex="0" class="gallery-item" data-index="2" aria-label="Chains">
+    <img src="https://navamani-site01.s3.ap-south-1.amazonaws.com/images/chains.jpg" alt="Golden Chains">
+    <h3>Chains</h3>
+  </div>
+  <div tabindex="0" class="gallery-item" data-index="3" aria-label="Earrings">
+    <img src="https://navamani-site01.s3.ap-south-1.amazonaws.com/images/earrings.jpg" alt="Designer Earrings">
+    <h3>Earrings</h3>
+  </div>
+</section>
+
+<section id="contact" aria-label="Contact Form">
+  <h2>Contact Us</h2>
+  <form id="contactForm" novalidate>
+    <input type="text" id="name" name="name" placeholder="Your Name" required autocomplete="name" />
+    <input type="email" id="email" name="email" placeholder="Your Email" required autocomplete="email" />
+    <input type="tel" id="phone" name="phone" placeholder="Phone Number" required autocomplete="tel" />
+    <textarea id="message" name="message" placeholder="Your Message" required></textarea>
+    <button type="submit" aria-label="Send message">Send Message</button>
+    <div id="formResponse" role="alert" aria-live="polite"></div>
+  </form>
+</section>
+
+<footer>
+  <p>Follow us on Instagram: <a href="https://www.instagram.com/navamani_elite_jewels" target="_blank" rel="noopener noreferrer">@navamani_elite_jewels</a></p>
+  <p>&copy; 2025 Navamani Gold Covering. All Rights Reserved.</p>
+</footer>
+
+<!-- Lightbox -->
+<div class="lightbox-overlay" role="dialog" aria-modal="true" aria-label="Image preview" tabindex="-1" hidden>
+  <div class="lightbox-content">
+    <button class="lightbox-close" aria-label="Close preview">&times;</button>
+    <img src="" alt="" />
+  </div>
+</div>
+
+<script>
+  // Lightbox logic
+  const lightbox = document.querySelector('.lightbox-overlay');
+  const lightboxImg = lightbox.querySelector('img');
+  const closeBtn = lightbox.querySelector('.lightbox-close');
+  const galleryItems = document.querySelectorAll('.gallery-item');
+
+  const images = Array.from(galleryItems).map(item => {
+    const img = item.querySelector('img');
+    return { src: img.src, alt: img.alt };
+  });
+
+  let currentIndex = 0;
+
+  function openLightbox(index) {
+    currentIndex = index;
+    lightboxImg.src = images[index].src;
+    lightboxImg.alt = images[index].alt;
+    lightbox.hidden = false;
+    lightbox.classList.add('active');
+    lightbox.focus();
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightboxFunc() {
+    lightbox.hidden = true;
+    lightbox.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  galleryItems.forEach((item, i) => {
+    item.addEventListener('click', () => openLightbox(i));
+    item.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        openLightbox(i);
+      }
+    });
+  });
+
+  closeBtn.addEventListener('click', closeLightboxFunc);
+  lightbox.addEventListener('click', e => {
+    if (e.target === lightbox) closeLightboxFunc();
+  });
+  lightbox.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeLightboxFunc();
+  });
+
+  // Contact form submit logic
+  document.getElementById('contactForm').addEventListener('submit', async e => {
+    e.preventDefault();
+    const responseDiv = document.getElementById('formResponse');
+    responseDiv.textContent = 'Sending...';
+    responseDiv.className = '';
+
+    const formData = {
+      name: e.target.name.value.trim(),
+      email: e.target.email.value.trim(),
+      phone: e.target.phone.value.trim(),
+      message: e.target.message.value.trim()
+    };
+
+    // Simple validation
+    if (!formData.name || !formData.email || !formData.phone || !formData.message) {
+      responseDiv.textContent = 'Please fill all fields.';
+      responseDiv.className = 'error';
+      return;
+    }
+
+    try {
+      const res = await fetch('https://5hon6050i6.execute-api.ap-south-1.amazonaws.com/dev/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
+      const data = await res.json();
+      if (res.ok) {
+        responseDiv.textContent = data.message || 'Message sent successfully!';
+        responseDiv.className = 'success';
+        e.target.reset();
+      } else {
+        throw new Error(data.error || 'Something went wrong');
+      }
+    } catch (err) {
+      responseDiv.textContent = '❌ ' + err.message;
+      responseDiv.className = 'error';
+    }
+  });
+</script>
+
+</body>
+</html>
